@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Consumer } from '../context'
+import axios from 'axios'
 
 export default class Addtodo extends Component {
     state = {
@@ -15,7 +16,8 @@ export default class Addtodo extends Component {
     add = (dispatch, e) => {
         e.preventDefault()
         const newTodo = this.state
-        dispatch({ type:"ADD", payload: newTodo })
+        axios.post("/todos", newTodo)
+            .then(res => dispatch({ type:"ADD", payload: res.data }))
         this.setState({ title: "" })
 
     }
